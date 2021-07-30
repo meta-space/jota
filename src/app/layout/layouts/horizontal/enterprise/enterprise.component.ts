@@ -16,6 +16,7 @@ export class EnterpriseLayoutComponent implements OnInit, OnDestroy
 {
     isScreenSmall: boolean;
     navigation: Navigation;
+    expanded = true;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -97,6 +98,6 @@ export class EnterpriseLayoutComponent implements OnInit, OnDestroy
         {
             // Toggle the opened status
             navigation.toggle();
-        }
+            this.expanded = navigation.opened;        }
     }
 }

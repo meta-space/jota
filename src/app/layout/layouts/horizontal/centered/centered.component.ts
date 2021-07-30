@@ -16,6 +16,7 @@ export class CenteredLayoutComponent implements OnInit, OnDestroy
 {
     navigation: Navigation;
     isScreenSmall: boolean;
+    expanded = true;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -97,6 +98,6 @@ export class CenteredLayoutComponent implements OnInit, OnDestroy
         {
             // Toggle the opened status
             navigation.toggle();
-        }
+            this.expanded = navigation.opened;        }
     }
 }
