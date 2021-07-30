@@ -1,9 +1,9 @@
 {
-    "name": "@fuse/starter",
+    "name": "jota",
     "version": "13.3.1",
-    "description": "Fuse - Angular Admin Template and Starter Project",
-    "author": "https://themeforest.net/user/srcn",
-    "license": "https://themeforest.net/licenses/standard",
+    "description": "Jota - Notes App",
+    "author": "david fries",
+    "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
     "private": true,
     "scripts": {
         "ng": "ng",
@@ -24,6 +24,7 @@
         "@angular/platform-browser": "12.1.2",
         "@angular/platform-browser-dynamic": "12.1.2",
         "@angular/router": "12.1.2",
+        "@angular/service-worker": "12.1.2",
         "@fullcalendar/angular": "4.4.5-beta",
         "@fullcalendar/core": "4.4.2",
         "@fullcalendar/daygrid": "4.4.2",
