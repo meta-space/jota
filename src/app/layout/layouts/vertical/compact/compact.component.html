@@ -5,7 +5,8 @@
     [mode]="isScreenSmall ? 'over' : 'side'"
     [name]="'mainNavigation'"
     [navigation]="navigation.compact"
-    [opened]="!isScreenSmall">
+    [opened]="!isScreenSmall"
+    #navDrawer>
     <!-- Navigation header hook -->
     <ng-container fuseVerticalNavigationContentHeader>
         <!-- Logo -->
@@ -27,7 +28,7 @@
         <button
             mat-icon-button
             (click)="toggleNavigation('mainNavigation')">
-            <hamburger-icon-left-arrow class="w-8 h-8 text-current" [open]="expanded"></hamburger-icon-left-arrow>
+            <hamburger-icon-left-arrow class="w-8 h-8 text-current" [open]="navDrawer.openedChanged | async"></hamburger-icon-left-arrow>
         </button>
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-1 sm:space-x-2">

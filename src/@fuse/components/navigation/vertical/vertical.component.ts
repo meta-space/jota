@@ -331,6 +331,8 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
     {
         setTimeout(() => {
 
+            this.openedChanged.emit(this.opened);
+
             // Return if 'navigation content' element does not exist
             if ( !this._navigationContentEl )
             {
@@ -366,6 +368,7 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
                     fuseScrollbarDirective.scrollToElement('.fuse-vertical-navigation-item-active', -120, true);
                 });
             }
+
         });
     }
 

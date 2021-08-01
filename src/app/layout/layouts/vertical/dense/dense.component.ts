@@ -16,7 +16,6 @@ export class DenseLayoutComponent implements OnInit, OnDestroy
 {
     isScreenSmall: boolean;
     navigation: Navigation;
-    expanded = true;
     navigationAppearance: 'default' | 'dense' = 'dense';
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -99,7 +98,7 @@ export class DenseLayoutComponent implements OnInit, OnDestroy
         {
             // Toggle the opened status
             navigation.toggle();
-            this.expanded = navigation.opened;        }
+        }
     }
 
     /**

@@ -115,7 +115,7 @@ export class NotesListComponent implements OnInit, OnDestroy
             .subscribe(({matchingAliases}) => {
 
                 // Set the drawerMode and drawerOpened if the given breakpoint is active
-                if ( matchingAliases.includes('lg') )
+                if ( matchingAliases.includes('md') )
                 {
                     this.drawerMode = 'side';
                     this.drawerOpened = true;
