@@ -28,8 +28,7 @@
             class="mr-2"
             mat-icon-button
             (click)="toggleNavigation('mainNavigation')">
-            <mat-icon [svgIcon]="'heroicons_outline:chevron-double-right'" class="transition-all duration-500 ease-in-out" [ngClass]="{'transform rotate-180' : expanded}" ></mat-icon>
-        </button>
+<hamburger-icon-left-arrow class="w-8 h-8 text-current" [open]="expanded"></hamburger-icon-left-arrow>        </button>
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-1 sm:space-x-2">
             <languages></languages>
