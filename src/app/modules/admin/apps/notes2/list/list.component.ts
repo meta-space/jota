@@ -1,32 +1,32 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MailboxService } from 'app/modules/admin/apps/mailbox/mailbox.service';
-import { MailboxComponent } from 'app/modules/admin/apps/mailbox/mailbox.component';
-import { Mail, MailCategory } from 'app/modules/admin/apps/mailbox/mailbox.types';
+import { NotesService } from 'app/modules/admin/apps/notes2/notes.service';
+import { NotesComponent } from 'app/modules/admin/apps/notes2/notes.component';
+import { Note, NoteCategory } from 'app/modules/admin/apps/notes2/notes.types';
 
 @Component({
-    selector     : 'mailbox-list',
+    selector     : 'notes-list',
     templateUrl  : './list.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class MailboxListComponent implements OnInit, OnDestroy
+export class NotesListComponent implements OnInit, OnDestroy
 {
-    @ViewChild('mailList') mailList: ElementRef;
+    @ViewChild('notesList') notesList: ElementRef;
 
-    category: MailCategory;
-    mails: Mail[];
-    mailsLoading: boolean = false;
+    category: NoteCategory;
+    notes: Note[];
+    notesLoading: boolean = false;
     pagination: any;
-    selectedMail: Mail;
+    selectedNote: Note;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
      * Constructor
      */
     constructor(
-        public mailboxComponent: MailboxComponent,
-        private _mailboxService: MailboxService
+        public notesComponent: NotesComponent,
+        private _notesService: NotesService
     )
     {
     }
@@ -41,45 +41,45 @@ export class MailboxListComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {
         // Category
-        this._mailboxService.category$
+        this._notesService.category$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((category: MailCategory) => {
+            .subscribe((category: NoteCategory) => {
                 this.category = category;
             });
 
-        // Mails
-        this._mailboxService.mails$
+        // Notes
+        this._notesService.notes$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((mails: Mail[]) => {
-                this.mails = mails;
+            .subscribe((mails: Note[]) => {
+                this.notes = mails;
             });
 
-        // Mails loading
-        this._mailboxService.mailsLoading$
+        // Notes loading
+        this._notesService.notesLoading$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((mailsLoading: boolean) => {
-                this.mailsLoading = mailsLoading;
+            .subscribe((notesLoading: boolean) => {
+                this.notesLoading = notesLoading;
 
-                // If the mail list element is available & the mails are loaded...
-                if ( this.mailList && !mailsLoading )
+                // If the note list element is available & the notes are loaded...
+                if ( this.notesList && !notesLoading )
                 {
-                    // Reset the mail list element scroll position to top
-                    this.mailList.nativeElement.scrollTo(0, 0);
+                    // Reset the note list element scroll position to top
+                    this.notesList.nativeElement.scrollTo(0, 0);
                 }
             });
 
         // Pagination
-        this._mailboxService.pagination$
+        this._notesService.pagination$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((pagination) => {
                 this.pagination = pagination;
             });
 
-        // Selected mail
-        this._mailboxService.mail$
+        // Selected note
+        this._notesService.note$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((mail: Mail) => {
-                this.selectedMail = mail;
+            .subscribe((note: Note) => {
+                this.selectedNote = note;
             });
     }
 
@@ -98,24 +98,24 @@ export class MailboxListComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
 
     /**
-     * On mail selected
+     * On note selected
      *
-     * @param mail
+     * @param note
      */
-    onMailSelected(mail: Mail): void
+    onMailSelected(note: Note): void
     {
-        // If the mail is unread...
-        if ( mail.unread )
+        // If the note is unread...
+        if ( note.unread )
         {
-            // Update the mail object
-            mail.unread = false;
+            // Update the note object
+            note.unread = false;
 
-            // Update the mail on the server
-            this._mailboxService.updateMail(mail.id, {unread: false}).subscribe();
+            // Update the note on the server
+            this._notesService.updateNote(note.id, {unread: false}).subscribe();
         }
 
         // Execute the mailSelected observable
-        this._mailboxService.selectedMailChanged.next(mail);
+        this._notesService.selectedMailChanged.next(note);
     }
 
     /**

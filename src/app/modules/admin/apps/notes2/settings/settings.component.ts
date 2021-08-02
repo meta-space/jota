@@ -1,30 +1,30 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, take } from 'rxjs/operators';
-import { MailboxComponent } from 'app/modules/admin/apps/mailbox/mailbox.component';
-import { MailboxService } from 'app/modules/admin/apps/mailbox/mailbox.service';
-import { MailLabel } from 'app/modules/admin/apps/mailbox/mailbox.types';
-import { labelColorDefs, labelColors } from 'app/modules/admin/apps/mailbox/mailbox.constants';
+import { NotesComponent } from 'app/modules/admin/apps/notes2/notes.component';
+import { NotesService } from 'app/modules/admin/apps/notes2/notes.service';
+import { NoteLabel } from 'app/modules/admin/apps/notes2/notes.types';
+import { labelColorDefs, labelColors } from 'app/modules/admin/apps/notes2/notes.constants';
 
 @Component({
-    selector     : 'mailbox-settings',
+    selector     : 'notes-settings',
     templateUrl  : './settings.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class MailboxSettingsComponent implements OnInit
+export class NotesSettingsComponent implements OnInit
 {
     labelColors: any = labelColors;
     labelColorDefs: any = labelColorDefs;
-    labels: MailLabel[];
+    labels: NoteLabel[];
     labelsForm: FormGroup;
 
     /**
      * Constructor
      */
     constructor(
-        public mailboxComponent: MailboxComponent,
+        public notesComponent: NotesComponent,
         private _formBuilder: FormBuilder,
-        private _mailboxService: MailboxService
+        private _notesService: NotesService
     )
     {
     }
@@ -48,9 +48,9 @@ export class MailboxSettingsComponent implements OnInit
         });
 
         // Labels
-        this._mailboxService.labels$
+        this._notesService.labels$
             .pipe(take(1))
-            .subscribe((labels: MailLabel[]) => {
+            .subscribe((labels: NoteLabel[]) => {
 
                 // Get the labels
                 this.labels = labels;
@@ -89,7 +89,7 @@ export class MailboxSettingsComponent implements OnInit
     addLabel(): void
     {
         // Add label to the server
-        this._mailboxService.addLabel(this.labelsForm.get('newLabel').value).subscribe((addedLabel) => {
+        this._notesService.addLabel(this.labelsForm.get('newLabel').value).subscribe((addedLabel) => {
 
             // Push the new label to the labels form array
             (this.labelsForm.get('labels') as FormArray).push(this._formBuilder.group({
@@ -120,7 +120,7 @@ export class MailboxSettingsComponent implements OnInit
         labelsFormArray.removeAt(labelsFormArray.value.findIndex(label => label.id === id));
 
         // Delete label on the server
-        this._mailboxService.deleteLabel(id).subscribe();
+        this._notesService.deleteLabel(id).subscribe();
     }
 
     /**
@@ -135,7 +135,7 @@ export class MailboxSettingsComponent implements OnInit
             if ( labelFormGroup.dirty )
             {
                 // Update the label on the server
-                this._mailboxService.updateLabel(labelFormGroup.value.id, labelFormGroup.value).subscribe();
+                this._notesService.updateLabel(labelFormGroup.value.id, labelFormGroup.value).subscribe();
             }
         });
 

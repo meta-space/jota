@@ -34,10 +34,10 @@ export const defaultNavigation: FuseNavigationItem[] = [
             },
             {
                 id   : 'apps.mailbox',
-                title: 'Mailbox',
+                title: 'Note 2',
                 type : 'basic',
                 icon : 'heroicons_outline:mail',
-                link : '/apps/mailbox',
+                link : '/apps/notes2',
                 badge: {
                     title  : '27',
                     classes: 'px-2 bg-pink-600 text-white rounded-full'

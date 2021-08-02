@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { forkJoin, Observable, throwError } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
-import { MailboxService } from 'app/modules/admin/apps/mailbox/mailbox.service';
-import { Mail, MailFilter, MailFolder, MailLabel } from 'app/modules/admin/apps/mailbox/mailbox.types';
+import { NotesService } from 'app/modules/admin/apps/notes2/notes.service';
+import { Note, NoteFilter, NoteFolder, NoteLabel } from 'app/modules/admin/apps/notes2/notes.types';
 
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxFoldersResolver implements Resolve<any>
+export class NotesFoldersResolver implements Resolve<any>
 {
     /**
      * Constructor
      */
-    constructor(private _mailboxService: MailboxService)
+    constructor(private _mailboxService: NotesService)
     {
     }
 
@@ -27,7 +27,7 @@ export class MailboxFoldersResolver implements Resolve<any>
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MailFolder[]>
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<NoteFolder[]>
     {
         return this._mailboxService.getFolders();
     }
@@ -36,12 +36,12 @@ export class MailboxFoldersResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxFiltersResolver implements Resolve<any>
+export class NotesFiltersResolver implements Resolve<any>
 {
     /**
      * Constructor
      */
-    constructor(private _mailboxService: MailboxService)
+    constructor(private _mailboxService: NotesService)
     {
     }
 
@@ -55,7 +55,7 @@ export class MailboxFiltersResolver implements Resolve<any>
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MailFilter[]>
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<NoteFilter[]>
     {
         return this._mailboxService.getFilters();
     }
@@ -64,12 +64,12 @@ export class MailboxFiltersResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxLabelsResolver implements Resolve<any>
+export class NotesLabelsResolver implements Resolve<any>
 {
     /**
      * Constructor
      */
-    constructor(private _mailboxService: MailboxService)
+    constructor(private _mailboxService: NotesService)
     {
     }
 
@@ -83,7 +83,7 @@ export class MailboxLabelsResolver implements Resolve<any>
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MailLabel[]>
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<NoteLabel[]>
     {
         return this._mailboxService.getLabels();
     }
@@ -92,13 +92,13 @@ export class MailboxLabelsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxMailsResolver implements Resolve<any>
+export class NotesNotesResolver implements Resolve<any>
 {
     /**
      * Constructor
      */
     constructor(
-        private _mailboxService: MailboxService,
+        private _mailboxService: NotesService,
         private _router: Router
     )
     {
@@ -114,7 +114,7 @@ export class MailboxMailsResolver implements Resolve<any>
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Mail[]> | any
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Note[]> | any
     {
         // Don't allow page param to go below 1
         if ( route.paramMap.get('page') && parseInt(route.paramMap.get('page'), 10) <= 0 )
@@ -135,19 +135,19 @@ export class MailboxMailsResolver implements Resolve<any>
         // If folder is set on the parameters...
         if ( route.paramMap.get('folder') )
         {
-            sources.push(this._mailboxService.getMailsByFolder(route.paramMap.get('folder'), route.paramMap.get('page')));
+            sources.push(this._mailboxService.getNotesByFolder(route.paramMap.get('folder'), route.paramMap.get('page')));
         }
 
         // If filter is set on the parameters...
         if ( route.paramMap.get('filter') )
         {
-            sources.push(this._mailboxService.getMailsByFilter(route.paramMap.get('filter'), route.paramMap.get('page')));
+            sources.push(this._mailboxService.getNotesByFilter(route.paramMap.get('filter'), route.paramMap.get('page')));
         }
 
         // If label is set on the parameters...
         if ( route.paramMap.get('label') )
         {
-            sources.push(this._mailboxService.getMailsByLabel(route.paramMap.get('label'), route.paramMap.get('page')));
+            sources.push(this._mailboxService.getNotesByLabel(route.paramMap.get('label'), route.paramMap.get('page')));
         }
 
         // Fork join all the sources
@@ -172,7 +172,7 @@ export class MailboxMailsResolver implements Resolve<any>
                     if ( !currentRoute.paramMap.get('id') )
                     {
                         // Reset the mail
-                        this._mailboxService.resetMail().subscribe();
+                        this._mailboxService.resetNote().subscribe();
                     }
                 }),
 
@@ -198,13 +198,13 @@ export class MailboxMailsResolver implements Resolve<any>
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxMailResolver implements Resolve<any>
+export class NotesNoteResolver implements Resolve<any>
 {
     /**
      * Constructor
      */
     constructor(
-        private _mailboxService: MailboxService,
+        private _mailboxService: NotesService,
         private _router: Router
     )
     {
@@ -220,9 +220,9 @@ export class MailboxMailResolver implements Resolve<any>
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Mail>
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Note>
     {
-        return this._mailboxService.getMailById(route.paramMap.get('id'))
+        return this._mailboxService.getNoteById(route.paramMap.get('id'))
                    .pipe(
                        // Error here means the requested mail is either
                        // not available on the requested page or not

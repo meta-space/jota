@@ -1,20 +1,17 @@
 import { ActivatedRouteSnapshot, Route, UrlMatchResult, UrlSegment } from '@angular/router';
 import { isEqual } from 'lodash-es';
-import { MailboxComponent } from 'app/modules/admin/apps/mailbox/mailbox.component';
-import { MailboxFiltersResolver, MailboxFoldersResolver, MailboxLabelsResolver, MailboxMailResolver, MailboxMailsResolver } from 'app/modules/admin/apps/mailbox/mailbox.resolvers';
-import { MailboxListComponent } from 'app/modules/admin/apps/mailbox/list/list.component';
-import { MailboxDetailsComponent } from 'app/modules/admin/apps/mailbox/details/details.component';
-import { MailboxSettingsComponent } from 'app/modules/admin/apps/mailbox/settings/settings.component';
+import { NotesComponent } from 'app/modules/admin/apps/notes2/notes.component';
+import { NotesFiltersResolver, NotesFoldersResolver, NotesLabelsResolver, NotesNoteResolver, NotesNotesResolver } from 'app/modules/admin/apps/notes2/notes.resolvers';
+import { NotesListComponent } from 'app/modules/admin/apps/notes2/list/list.component';
+import { NotesDetailsComponent } from 'app/modules/admin/apps/notes2/details/details.component';
+import { NotesSettingsComponent } from 'app/modules/admin/apps/notes2/settings/settings.component';
 
 /**
- * Mailbox custom route matcher
+ * Notes custom route matcher
  *
  * @param url
  */
 export const mailboxRouteMatcher: (url: UrlSegment[]) => UrlMatchResult = (url: UrlSegment[]) => {
-
-
-    debugger;
 
     // Prepare consumed url and positional parameters
     let consumed = url;
@@ -58,8 +55,6 @@ export const mailboxRouteMatcher: (url: UrlSegment[]) => UrlMatchResult = (url: 
 };
 
 export const mailboxRunGuardsAndResolvers: (from: ActivatedRouteSnapshot, to: ActivatedRouteSnapshot) => boolean = (from: ActivatedRouteSnapshot, to: ActivatedRouteSnapshot) => {
-
-    debugger;
 
     // If we are navigating from mail to mails, meaning there is an id in
     // from's deepest first child and there isn't one in the to's, we will
@@ -129,29 +124,29 @@ export const mailboxRoutes: Route[] = [
     },
     {
         path     : '',
-        component: MailboxComponent,
+        component: NotesComponent,
         resolve  : {
-            filters: MailboxFiltersResolver,
-            folders: MailboxFoldersResolver,
-            labels : MailboxLabelsResolver
+            filters: NotesFiltersResolver,
+            folders: NotesFoldersResolver,
+            labels : NotesLabelsResolver
         },
         children : [
             {
-                component            : MailboxListComponent,
+                component            : NotesListComponent,
                 matcher              : mailboxRouteMatcher,
                 runGuardsAndResolvers: mailboxRunGuardsAndResolvers,
                 resolve              : {
-                    mails: MailboxMailsResolver
+                    mails: NotesNotesResolver
                 },
                 children             : [
                     {
                         path     : '',
-                        component: MailboxDetailsComponent,
+                        component: NotesDetailsComponent,
                         children : [
                             {
                                 path   : ':id',
                                 resolve: {
-                                    mail: MailboxMailResolver
+                                    mail: NotesNoteResolver
                                 }
                             }
                         ]
@@ -160,7 +155,7 @@ export const mailboxRoutes: Route[] = [
             },
             {
                 path     : 'settings',
-                component: MailboxSettingsComponent
+                component: NotesSettingsComponent
             }
         ]
     }

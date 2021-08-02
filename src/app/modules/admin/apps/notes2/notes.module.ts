@@ -17,22 +17,22 @@ import { FuseNavigationModule } from '@fuse/components/navigation';
 import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
 import { FuseScrollResetModule } from '@fuse/directives/scroll-reset';
 import { SharedModule } from 'app/shared/shared.module';
-import { MailboxComponent } from 'app/modules/admin/apps/mailbox/mailbox.component';
-import { MailboxComposeComponent } from 'app/modules/admin/apps/mailbox/compose/compose.component';
-import { MailboxDetailsComponent } from 'app/modules/admin/apps/mailbox/details/details.component';
-import { MailboxListComponent } from 'app/modules/admin/apps/mailbox/list/list.component';
-import { MailboxSettingsComponent } from 'app/modules/admin/apps/mailbox/settings/settings.component';
-import { MailboxSidebarComponent } from 'app/modules/admin/apps/mailbox/sidebar/sidebar.component';
-import { mailboxRoutes } from 'app/modules/admin/apps/mailbox/mailbox.routing';
+import { NotesComponent } from 'app/modules/admin/apps/notes2/notes.component';
+import { NotesComposeComponent } from 'app/modules/admin/apps/notes2/compose/compose.component';
+import { NotesDetailsComponent } from 'app/modules/admin/apps/notes2/details/details.component';
+import { NotesListComponent } from 'app/modules/admin/apps/notes2/list/list.component';
+import { NotesSettingsComponent } from 'app/modules/admin/apps/notes2/settings/settings.component';
+import { NotesSidebarComponent } from 'app/modules/admin/apps/notes2/sidebar/sidebar.component';
+import { mailboxRoutes } from 'app/modules/admin/apps/notes2/notes.routing';
 
 @NgModule({
     declarations: [
-        MailboxComponent,
-        MailboxComposeComponent,
-        MailboxDetailsComponent,
-        MailboxListComponent,
-        MailboxSettingsComponent,
-        MailboxSidebarComponent
+        NotesComponent,
+        NotesComposeComponent,
+        NotesDetailsComponent,
+        NotesListComponent,
+        NotesSettingsComponent,
+        NotesSidebarComponent
     ],
     imports     : [
         RouterModule.forChild(mailboxRoutes),
@@ -55,6 +55,6 @@ import { mailboxRoutes } from 'app/modules/admin/apps/mailbox/mailbox.routing';
         SharedModule
     ]
 })
-export class MailboxModule
+export class NotesModule
 {
 }

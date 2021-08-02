@@ -5,11 +5,11 @@ import { takeUntil } from 'rxjs/operators';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 
 @Component({
-    selector     : 'mailbox',
-    templateUrl  : './mailbox.component.html',
+    selector     : 'notes',
+    templateUrl  : './notes.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class MailboxComponent implements OnInit, OnDestroy
+export class NotesComponent implements OnInit, OnDestroy
 {
     @ViewChild('drawer') drawer: MatDrawer;
 

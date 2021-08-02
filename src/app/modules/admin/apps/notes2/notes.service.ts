@@ -2,21 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
-import { Mail, MailCategory, MailFilter, MailFolder, MailLabel } from 'app/modules/admin/apps/mailbox/mailbox.types';
+import { Note, NoteCategory, NoteFilter, NoteFolder, NoteLabel } from 'app/modules/admin/apps/notes2/notes.types';
 
 @Injectable({
     providedIn: 'root'
 })
-export class MailboxService
+export class NotesService
 {
     selectedMailChanged: BehaviorSubject<any> = new BehaviorSubject(null);
-    private _category: BehaviorSubject<MailCategory> = new BehaviorSubject(null);
-    private _filters: BehaviorSubject<MailFilter[]> = new BehaviorSubject(null);
-    private _folders: BehaviorSubject<MailFolder[]> = new BehaviorSubject(null);
-    private _labels: BehaviorSubject<MailLabel[]> = new BehaviorSubject(null);
-    private _mails: BehaviorSubject<Mail[]> = new BehaviorSubject(null);
-    private _mailsLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    private _mail: BehaviorSubject<Mail> = new BehaviorSubject(null);
+    private _category: BehaviorSubject<NoteCategory> = new BehaviorSubject(null);
+    private _filters: BehaviorSubject<NoteFilter[]> = new BehaviorSubject(null);
+    private _folders: BehaviorSubject<NoteFolder[]> = new BehaviorSubject(null);
+    private _labels: BehaviorSubject<NoteLabel[]> = new BehaviorSubject(null);
+    private _notes: BehaviorSubject<Note[]> = new BehaviorSubject(null);
+    private _notesLoading: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    private _note: BehaviorSubject<Note> = new BehaviorSubject(null);
     private _pagination: BehaviorSubject<any> = new BehaviorSubject(null);
 
     /**
@@ -33,7 +33,7 @@ export class MailboxService
     /**
      * Getter for category
      */
-    get category$(): Observable<MailCategory>
+    get category$(): Observable<NoteCategory>
     {
         return this._category.asObservable();
     }
@@ -41,7 +41,7 @@ export class MailboxService
     /**
      * Getter for filters
      */
-    get filters$(): Observable<MailFilter[]>
+    get filters$(): Observable<NoteFilter[]>
     {
         return this._filters.asObservable();
     }
@@ -49,7 +49,7 @@ export class MailboxService
     /**
      * Getter for folders
      */
-    get folders$(): Observable<MailFolder[]>
+    get folders$(): Observable<NoteFolder[]>
     {
         return this._folders.asObservable();
     }
@@ -57,33 +57,33 @@ export class MailboxService
     /**
      * Getter for labels
      */
-    get labels$(): Observable<MailLabel[]>
+    get labels$(): Observable<NoteLabel[]>
     {
         return this._labels.asObservable();
     }
 
     /**
-     * Getter for mails
+     * Getter for notes
      */
-    get mails$(): Observable<Mail[]>
+    get notes$(): Observable<Note[]>
     {
-        return this._mails.asObservable();
+        return this._notes.asObservable();
     }
 
     /**
-     * Getter for mails loading
+     * Getter for notes loading
      */
-    get mailsLoading$(): Observable<boolean>
+    get notesLoading$(): Observable<boolean>
     {
-        return this._mailsLoading.asObservable();
+        return this._notesLoading.asObservable();
     }
 
     /**
-     * Getter for mail
+     * Getter for note
      */
-    get mail$(): Observable<Mail>
+    get note$(): Observable<Note>
     {
-        return this._mail.asObservable();
+        return this._note.asObservable();
     }
 
     /**
@@ -103,7 +103,7 @@ export class MailboxService
      */
     getFilters(): Observable<any>
     {
-        return this._httpClient.get<MailFilter[]>('api/apps/mailbox/filters').pipe(
+        return this._httpClient.get<NoteFilter[]>('api/apps/mailbox/filters').pipe(
             tap((response: any) => {
                 this._filters.next(response);
             })
@@ -115,7 +115,7 @@ export class MailboxService
      */
     getFolders(): Observable<any>
     {
-        return this._httpClient.get<MailFolder[]>('api/apps/mailbox/folders').pipe(
+        return this._httpClient.get<NoteFolder[]>('api/apps/mailbox/folders').pipe(
             tap((response: any) => {
                 this._folders.next(response);
             })
@@ -127,7 +127,7 @@ export class MailboxService
      */
     getLabels(): Observable<any>
     {
-        return this._httpClient.get<MailLabel[]>('api/apps/mailbox/labels').pipe(
+        return this._httpClient.get<NoteLabel[]>('api/apps/mailbox/labels').pipe(
             tap((response: any) => {
                 this._labels.next(response);
             })
@@ -135,14 +135,14 @@ export class MailboxService
     }
 
     /**
-     * Get mails by filter
+     * Get notes by filter
      */
-    getMailsByFilter(filter: string, page: string = '1'): Observable<any>
+    getNotesByFilter(filter: string, page: string = '1'): Observable<any>
     {
-        // Execute the mails loading with true
-        this._mailsLoading.next(true);
+        // Execute the notes loading with true
+        this._notesLoading.next(true);
 
-        return this._httpClient.get<Mail[]>('api/apps/mailbox/mails', {
+        return this._httpClient.get<Note[]>('api/apps/mailbox/mails', {
             params: {
                 filter,
                 page
@@ -153,9 +153,9 @@ export class MailboxService
                     type: 'filter',
                     name: filter
                 });
-                this._mails.next(response.mails);
+                this._notes.next(response.mails);
                 this._pagination.next(response.pagination);
-                this._mailsLoading.next(false);
+                this._notesLoading.next(false);
             }),
             switchMap((response) => {
 
@@ -173,14 +173,14 @@ export class MailboxService
     }
 
     /**
-     * Get mails by folder
+     * Get notes by folder
      */
-    getMailsByFolder(folder: string, page: string = '1'): Observable<any>
+    getNotesByFolder(folder: string, page: string = '1'): Observable<any>
     {
-        // Execute the mails loading with true
-        this._mailsLoading.next(true);
+        // Execute the notes loading with true
+        this._notesLoading.next(true);
 
-        return this._httpClient.get<Mail[]>('api/apps/mailbox/mails', {
+        return this._httpClient.get<Note[]>('api/apps/mailbox/mails', {
             params: {
                 folder,
                 page
@@ -191,9 +191,9 @@ export class MailboxService
                     type: 'folder',
                     name: folder
                 });
-                this._mails.next(response.mails);
+                this._notes.next(response.mails);
                 this._pagination.next(response.pagination);
-                this._mailsLoading.next(false);
+                this._notesLoading.next(false);
             }),
             switchMap((response) => {
 
@@ -211,14 +211,14 @@ export class MailboxService
     }
 
     /**
-     * Get mails by label
+     * Get notes by label
      */
-    getMailsByLabel(label: string, page: string = '1'): Observable<any>
+    getNotesByLabel(label: string, page: string = '1'): Observable<any>
     {
-        // Execute the mails loading with true
-        this._mailsLoading.next(true);
+        // Execute the notes loading with true
+        this._notesLoading.next(true);
 
-        return this._httpClient.get<Mail[]>('api/apps/mailbox/mails', {
+        return this._httpClient.get<Note[]>('api/apps/mailbox/mails', {
             params: {
                 label,
                 page
@@ -229,9 +229,9 @@ export class MailboxService
                     type: 'label',
                     name: label
                 });
-                this._mails.next(response.mails);
+                this._notes.next(response.mails);
                 this._pagination.next(response.pagination);
-                this._mailsLoading.next(false);
+                this._notesLoading.next(false);
             }),
             switchMap((response) => {
 
@@ -249,50 +249,50 @@ export class MailboxService
     }
 
     /**
-     * Get mail by id
+     * Get note by id
      */
-    getMailById(id: string): Observable<any>
+    getNoteById(id: string): Observable<any>
     {
-        return this._mails.pipe(
+        return this._notes.pipe(
             take(1),
-            map((mails) => {
+            map((notes) => {
 
-                // Find the mail
-                const mail = mails.find(item => item.id === id) || null;
+                // Find the note
+                const note = notes.find(item => item.id === id) || null;
 
-                // Update the mail
-                this._mail.next(mail);
+                // Update the note
+                this._note.next(note);
 
-                // Return the mail
-                return mail;
+                // Return the note
+                return note;
             }),
-            switchMap((mail) => {
+            switchMap((note) => {
 
-                if ( !mail )
+                if ( !note )
                 {
-                    return throwError('Could not found mail with id of ' + id + '!');
+                    return throwError('Could not found note with id of ' + id + '!');
                 }
 
-                return of(mail);
+                return of(note);
             })
         );
     }
 
     /**
-     * Update mail
+     * Update note
      *
      * @param id
-     * @param mail
+     * @param note
      */
-    updateMail(id: string, mail: Mail): Observable<any>
+    updateNote(id: string, note: Note): Observable<any>
     {
         return this._httpClient.patch('api/apps/mailbox/mail', {
             id,
-            mail
+            mail: note
         }).pipe(
             tap(() => {
 
-                // Re-fetch the folders on mail update
+                // Re-fetch the folders on note update
                 // to get the updated counts on the sidebar
                 this.getFolders().subscribe();
             })
@@ -300,14 +300,14 @@ export class MailboxService
     }
 
     /**
-     * Reset the current mail
+     * Reset the current note
      */
-    resetMail(): Observable<boolean>
+    resetNote(): Observable<boolean>
     {
         return of(true).pipe(
             take(1),
             tap(() => {
-                this._mail.next(null);
+                this._note.next(null);
             })
         );
     }
@@ -317,11 +317,11 @@ export class MailboxService
      *
      * @param label
      */
-    addLabel(label: MailLabel): Observable<any>
+    addLabel(label: NoteLabel): Observable<any>
     {
         return this.labels$.pipe(
             take(1),
-            switchMap(labels => this._httpClient.post<MailLabel>('api/apps/mailbox/label', {label}).pipe(
+            switchMap(labels => this._httpClient.post<NoteLabel>('api/apps/mailbox/label', {label}).pipe(
                 map((newLabel) => {
 
                     // Update the labels with the new label
@@ -340,11 +340,11 @@ export class MailboxService
      * @param id
      * @param label
      */
-    updateLabel(id: string, label: MailLabel): Observable<any>
+    updateLabel(id: string, label: NoteLabel): Observable<any>
     {
         return this.labels$.pipe(
             take(1),
-            switchMap(labels => this._httpClient.patch<MailLabel>('api/apps/mailbox/label', {
+            switchMap(labels => this._httpClient.patch<NoteLabel>('api/apps/mailbox/label', {
                 id,
                 label
             }).pipe(

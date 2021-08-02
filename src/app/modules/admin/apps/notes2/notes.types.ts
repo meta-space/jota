@@ -1,4 +1,4 @@
-export interface Mail
+export interface Note
 {
     id?: string;
     type?: string;
@@ -28,13 +28,13 @@ export interface Mail
     labels?: string[];
 }
 
-export interface MailCategory
+export interface NoteCategory
 {
     type: 'folder' | 'filter' | 'label';
     name: string;
 }
 
-export interface MailFolder
+export interface NoteFolder
 {
     id: string;
     title: string;
@@ -43,7 +43,7 @@ export interface MailFolder
     count?: number;
 }
 
-export interface MailFilter
+export interface NoteFilter
 {
     id: string;
     title: string;
@@ -51,7 +51,7 @@ export interface MailFilter
     icon: string;
 }
 
-export interface MailLabel
+export interface NoteLabel
 {
     id: string;
     title: string;

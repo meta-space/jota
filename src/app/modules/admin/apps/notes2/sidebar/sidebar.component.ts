@@ -3,22 +3,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FuseNavigationItem, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
-import { MailboxService } from 'app/modules/admin/apps/mailbox/mailbox.service';
-import { MailboxComposeComponent } from 'app/modules/admin/apps/mailbox/compose/compose.component';
-import { labelColorDefs } from 'app/modules/admin/apps/mailbox/mailbox.constants';
-import { MailFilter, MailFolder, MailLabel } from 'app/modules/admin/apps/mailbox/mailbox.types';
+import { NotesService } from 'app/modules/admin/apps/notes2/notes.service';
+import { NotesComposeComponent } from 'app/modules/admin/apps/notes2/compose/compose.component';
+import { labelColorDefs } from 'app/modules/admin/apps/notes2/notes.constants';
+import { NoteFilter, NoteFolder, NoteLabel } from 'app/modules/admin/apps/notes2/notes.types';
 
 @Component({
-    selector     : 'mailbox-sidebar',
+    selector     : 'notes-sidebar',
     templateUrl  : './sidebar.component.html',
     styleUrls    : ['./sidebar.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class MailboxSidebarComponent implements OnInit, OnDestroy
+export class NotesSidebarComponent implements OnInit, OnDestroy
 {
-    filters: MailFilter[];
-    folders: MailFolder[];
-    labels: MailLabel[];
+    filters: NoteFilter[];
+    folders: NoteFolder[];
+    labels: NoteLabel[];
     menuData: FuseNavigationItem[] = [];
     private _filtersMenuData: FuseNavigationItem[] = [];
     private _foldersMenuData: FuseNavigationItem[] = [];
@@ -30,7 +30,7 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
      * Constructor
      */
     constructor(
-        private _mailboxService: MailboxService,
+        private _notesServices: NotesService,
         private _matDialog: MatDialog,
         private _fuseNavigationService: FuseNavigationService
     )
@@ -47,9 +47,9 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {
         // Filters
-        this._mailboxService.filters$
+        this._notesServices.filters$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((filters: MailFilter[]) => {
+            .subscribe((filters: NoteFilter[]) => {
                 this.filters = filters;
 
                 // Generate menu links
@@ -57,9 +57,9 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
             });
 
         // Folders
-        this._mailboxService.folders$
+        this._notesServices.folders$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((folders: MailFolder[]) => {
+            .subscribe((folders: NoteFolder[]) => {
                 this.folders = folders;
 
                 // Generate menu links
@@ -70,9 +70,9 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
             });
 
         // Labels
-        this._mailboxService.labels$
+        this._notesServices.labels$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((labels: MailLabel[]) => {
+            .subscribe((labels: NoteLabel[]) => {
                 this.labels = labels;
 
                 // Generate menu links
@@ -103,7 +103,7 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
     openComposeDialog(): void
     {
         // Open the dialog
-        const dialogRef = this._matDialog.open(MailboxComposeComponent);
+        const dialogRef = this._matDialog.open(NotesComposeComponent);
 
         dialogRef.afterClosed()
                  .subscribe((result) => {
@@ -134,7 +134,7 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
                 title: folder.title,
                 type : 'basic',
                 icon : folder.icon,
-                link : '/apps/mailbox/' + folder.slug
+                link : '/apps/notes2/' + folder.slug
             };
 
             // If the count is available and is bigger than zero...
@@ -173,7 +173,7 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
                 title: filter.title,
                 type : 'basic',
                 icon : filter.icon,
-                link : '/apps/mailbox/filter/' + filter.slug
+                link : '/apps/notes2/filter/' + filter.slug
             });
         });
 
@@ -203,7 +203,7 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
                 classes: {
                     icon: labelColorDefs[label.color].text
                 },
-                link   : '/apps/mailbox/label/' + label.slug
+                link   : '/apps/notes2/label/' + label.slug
             });
         });
 
@@ -223,7 +223,7 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
             title: 'Settings',
             type : 'basic',
             icon : 'heroicons_outline:cog',
-            link : '/apps/mailbox/settings'
+            link : '/apps/notes2/settings'
         });
 
         // Update the menu data
@@ -239,7 +239,7 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
     {
         this.menuData = [
             {
-                title   : 'MAILBOXES',
+                title   : 'NOTES',
                 type    : 'group',
                 children: [
                     ...this._foldersMenuData
@@ -273,7 +273,7 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
      * @param folders
      * @private
      */
-    private _updateNavigationBadge(folders: MailFolder[]): void
+    private _updateNavigationBadge(folders: NoteFolder[]): void
     {
         // Get the inbox folder
         const inboxFolder = this.folders.find(folder => folder.slug === 'inbox');
@@ -285,7 +285,7 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy
         if ( mainNavigationComponent )
         {
             const mainNavigation = mainNavigationComponent.navigation;
-            const menuItem = this._fuseNavigationService.getItem('apps.mailbox', mainNavigation);
+            const menuItem = this._fuseNavigationService.getItem('apps.notes2', mainNavigation);
 
             // Update the badge title of the item
             menuItem.badge.title = inboxFolder.count + '';

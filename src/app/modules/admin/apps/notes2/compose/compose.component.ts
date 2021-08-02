@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-    selector     : 'mailbox-compose',
+    selector     : 'notes-compose',
     templateUrl  : './compose.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class MailboxComposeComponent implements OnInit
+export class NotesComposeComponent implements OnInit
 {
     composeForm: FormGroup;
     copyFields: { cc: boolean; bcc: boolean } = {
@@ -26,7 +26,7 @@ export class MailboxComposeComponent implements OnInit
      * Constructor
      */
     constructor(
-        public matDialogRef: MatDialogRef<MailboxComposeComponent>,
+        public matDialogRef: MatDialogRef<NotesComposeComponent>,
         private _formBuilder: FormBuilder
     )
     {

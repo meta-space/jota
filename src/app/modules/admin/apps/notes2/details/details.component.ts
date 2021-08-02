@@ -5,24 +5,24 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { MatButton } from '@angular/material/button';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MailboxService } from 'app/modules/admin/apps/mailbox/mailbox.service';
-import { Mail, MailFolder, MailLabel } from 'app/modules/admin/apps/mailbox/mailbox.types';
-import { labelColorDefs } from 'app/modules/admin/apps/mailbox/mailbox.constants';
+import { NotesService } from 'app/modules/admin/apps/notes2/notes.service';
+import { Note, NoteFolder, NoteLabel } from 'app/modules/admin/apps/notes2/notes.types';
+import { labelColorDefs } from 'app/modules/admin/apps/notes2/notes.constants';
 
 @Component({
-    selector     : 'mailbox-details',
+    selector     : 'notes-details',
     templateUrl  : './details.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class MailboxDetailsComponent implements OnInit, OnDestroy
+export class NotesDetailsComponent implements OnInit, OnDestroy
 {
     @ViewChild('infoDetailsPanelOrigin') private _infoDetailsPanelOrigin: MatButton;
     @ViewChild('infoDetailsPanel') private _infoDetailsPanel: TemplateRef<any>;
 
-    folders: MailFolder[];
+    folders: NoteFolder[];
     labelColors: any;
-    labels: MailLabel[];
-    mail: Mail;
+    labels: NoteLabel[];
+    note: Note;
     replyFormActive: boolean = false;
     private _overlayRef: OverlayRef;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -33,7 +33,7 @@ export class MailboxDetailsComponent implements OnInit, OnDestroy
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _elementRef: ElementRef,
-        private _mailboxService: MailboxService,
+        private _noteService: NotesService,
         private _overlay: Overlay,
         private _router: Router,
         private _viewContainerRef: ViewContainerRef
@@ -54,28 +54,28 @@ export class MailboxDetailsComponent implements OnInit, OnDestroy
         this.labelColors = labelColorDefs;
 
         // Folders
-        this._mailboxService.folders$
+        this._noteService.folders$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((folders: MailFolder[]) => {
+            .subscribe((folders: NoteFolder[]) => {
                 this.folders = folders;
             });
 
         // Labels
-        this._mailboxService.labels$
+        this._noteService.labels$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((labels: MailLabel[]) => {
+            .subscribe((labels: NoteLabel[]) => {
                 this.labels = labels;
             });
 
-        // Mail
-        this._mailboxService.mail$
+        // Note
+        this._noteService.note$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((mail: Mail) => {
-                this.mail = mail;
+            .subscribe((mail: Note) => {
+                this.note = mail;
             });
 
-        // Selected mail changed
-        this._mailboxService.selectedMailChanged
+        // Selected note changed
+        this._noteService.selectedMailChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(() => {
 
@@ -118,16 +118,16 @@ export class MailboxDetailsComponent implements OnInit, OnDestroy
 
         // Return if the current folder of the mail
         // is already equals to the given folder
-        if ( this.mail.folder === folder.id )
+        if ( this.note.folder === folder.id )
         {
             return;
         }
 
-        // Update the mail object
-        this.mail.folder = folder.id;
+        // Update the note object
+        this.note.folder = folder.id;
 
-        // Update the mail on the server
-        this._mailboxService.updateMail(this.mail.id, {folder: this.mail.folder}).subscribe();
+        // Update the note on the server
+        this._noteService.updateNote(this.note.id, {folder: this.note.folder}).subscribe();
 
         // Navigate to the parent
         this._router.navigate(['./'], {relativeTo: this._activatedRoute.parent});
@@ -138,27 +138,27 @@ export class MailboxDetailsComponent implements OnInit, OnDestroy
      *
      * @param label
      */
-    toggleLabel(label: MailLabel): void
+    toggleLabel(label: NoteLabel): void
     {
         let deleted = false;
 
-        // Update the mail object
-        if ( this.mail.labels.includes(label.id) )
+        // Update the note object
+        if ( this.note.labels.includes(label.id) )
         {
             // Set the deleted
             deleted = true;
 
             // Delete the label
-            this.mail.labels.splice(this.mail.labels.indexOf(label.id), 1);
+            this.note.labels.splice(this.note.labels.indexOf(label.id), 1);
         }
         else
         {
             // Add the label
-            this.mail.labels.push(label.id);
+            this.note.labels.push(label.id);
         }
 
-        // Update the mail on the server
-        this._mailboxService.updateMail(this.mail.id, {labels: this.mail.labels}).subscribe();
+        // Update the note on the server
+        this._noteService.updateNote(this.note.id, {labels: this.note.labels}).subscribe();
 
         // If the label was deleted...
         if ( deleted )
@@ -177,14 +177,14 @@ export class MailboxDetailsComponent implements OnInit, OnDestroy
      */
     toggleImportant(): void
     {
-        // Update the mail object
-        this.mail.important = !this.mail.important;
+        // Update the note object
+        this.note.important = !this.note.important;
 
-        // Update the mail on the server
-        this._mailboxService.updateMail(this.mail.id, {important: this.mail.important}).subscribe();
+        // Update the note on the server
+        this._noteService.updateNote(this.note.id, {important: this.note.important}).subscribe();
 
         // If the important was removed...
-        if ( !this.mail.important )
+        if ( !this.note.important )
         {
             // If the current activated route has a filter parameter and it equals to the 'important'...
             if ( this._activatedRoute.snapshot.paramMap.get('filter') && this._activatedRoute.snapshot.paramMap.get('filter') === 'important' )
@@ -200,14 +200,14 @@ export class MailboxDetailsComponent implements OnInit, OnDestroy
      */
     toggleStar(): void
     {
-        // Update the mail object
-        this.mail.starred = !this.mail.starred;
+        // Update the note object
+        this.note.starred = !this.note.starred;
 
-        // Update the mail on the server
-        this._mailboxService.updateMail(this.mail.id, {starred: this.mail.starred}).subscribe();
+        // Update the note on the server
+        this._noteService.updateNote(this.note.id, {starred: this.note.starred}).subscribe();
 
         // If the star was removed...
-        if ( !this.mail.starred )
+        if ( !this.note.starred )
         {
             // If the current activated route has a filter parameter and it equals to the 'starred'...
             if ( this._activatedRoute.snapshot.paramMap.get('filter') && this._activatedRoute.snapshot.paramMap.get('filter') === 'starred' )
@@ -225,11 +225,11 @@ export class MailboxDetailsComponent implements OnInit, OnDestroy
      */
     toggleUnread(unread: boolean): void
     {
-        // Update the mail object
-        this.mail.unread = unread;
+        // Update the note object
+        this.note.unread = unread;
 
-        // Update the mail on the server
-        this._mailboxService.updateMail(this.mail.id, {unread: this.mail.unread}).subscribe();
+        // Update the note on the server
+        this._noteService.updateNote(this.note.id, {unread: this.note.unread}).subscribe();
     }
 
     /**
