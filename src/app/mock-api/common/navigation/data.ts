@@ -25,14 +25,24 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon : 'heroicons_outline:pencil-alt',
                 link : '/apps/notes'
             },
-
             {
                 id   : 'apps.tasks',
                 title: 'Tasks',
                 type : 'basic',
                 icon : 'heroicons_outline:check-circle',
                 link : '/apps/tasks'
-            }
+            },
+            {
+                id   : 'apps.mailbox',
+                title: 'Mailbox',
+                type : 'basic',
+                icon : 'heroicons_outline:mail',
+                link : '/apps/mailbox',
+                badge: {
+                    title  : '27',
+                    classes: 'px-2 bg-pink-600 text-white rounded-full'
+                }
+            },
         ]
     }
 ];
