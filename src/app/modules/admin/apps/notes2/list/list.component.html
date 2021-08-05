@@ -11,7 +11,7 @@
                     <!-- Sidebar toggle button -->
                     <button
                         mat-icon-button
-                        (click)="mailboxComponent.drawer.toggle()">
+                        (click)="notesComponent.drawer.toggle()">
                         <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
                     </button>
                     <!-- Category name -->
@@ -73,7 +73,7 @@
                         <div
                             class="flex flex-col items-start justify-start w-full py-6 pr-4 pl-5 border-l-4 border-transparent"
                             [ngClass]="{'border-primary': note.unread,
-                                        'bg-primary-50 dark:bg-black dark:bg-opacity-5': selectedMail && selectedMail.id === note.id}">
+                                        'bg-primary-50 dark:bg-black dark:bg-opacity-5': selectedNote && selectedNote.id === note.id}">
 
                             <!-- Info -->
                             <div class="flex items-center w-full">
@@ -143,8 +143,8 @@
     <ng-container *ngIf="notes && notes.length > 0">
         <div
             class="flex-auto"
-            [ngClass]="{'z-20 absolute inset-0 lg:static lg:inset-auto flex': selectedMail && selectedMail.id,
-                        'hidden lg:flex': !selectedMail || !selectedMail.id}">
+            [ngClass]="{'z-20 absolute inset-0 lg:static lg:inset-auto flex': selectedNote && selectedNote.id,
+                        'hidden lg:flex': !selectedNote || !selectedNote.id}">
             <router-outlet></router-outlet>
         </div>
     </ng-container>

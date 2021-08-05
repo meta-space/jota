@@ -3,6 +3,11 @@ import { take } from 'rxjs/operators';
 import { AvailableLangs, TranslocoService } from '@ngneat/transloco';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 
+interface TranslocoLanguage {
+    id: string;
+    label: string;
+}
+
 @Component({
     selector       : 'languages',
     templateUrl    : './languages.component.html',
@@ -12,7 +17,7 @@ import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/co
 })
 export class LanguagesComponent implements OnInit, OnDestroy
 {
-    availableLangs: AvailableLangs;
+    availableLangs: TranslocoLanguage[];
     activeLang: string;
     flagCodes: any;
 
@@ -37,7 +42,7 @@ export class LanguagesComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {
         // Get the available languages from transloco
-        this.availableLangs = this._translocoService.getAvailableLangs();
+        this.availableLangs = this._translocoService.getAvailableLangs() as TranslocoLanguage[];
 
         // Subscribe to language changes
         this._translocoService.langChanges$.subscribe((activeLang) => {
