@@ -75,13 +75,11 @@ import { RxDBValidatePlugin } from 'rxdb/plugins/validate';
  */
 async function loadRxDBPlugins(): Promise<void> {
 
-    debugger;
 
     addRxPlugin(RxDBReplicationCouchDBPlugin);
     // http-adapter is always needed for replication with the node-server
     addPouchPlugin(PouchdbAdapterHttp);
 
-    debugger;
     if (IS_SERVER_SIDE_RENDERING) {
         // for server side rendering, import the memory adapter
         const PouchdbAdapterMemory = require('pouchdb-adapter-' + 'memory');
