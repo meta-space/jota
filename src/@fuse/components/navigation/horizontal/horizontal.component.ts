@@ -20,7 +20,7 @@ export class FuseHorizontalNavigationComponent implements OnChanges, OnInit, OnD
     @Input() navigation: FuseNavigationItem[];
 
     onRefreshed: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

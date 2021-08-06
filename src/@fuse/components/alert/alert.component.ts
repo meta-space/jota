@@ -32,7 +32,7 @@ export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy
     @Input() type: FuseAlertType = 'primary';
     @Output() readonly dismissedChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor
