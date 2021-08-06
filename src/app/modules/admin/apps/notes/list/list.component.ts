@@ -26,7 +26,7 @@ export class NotesListComponent implements OnInit, OnDestroy
     searchQuery$: BehaviorSubject<string> = new BehaviorSubject(null);
     masonryColumns: number = 4;
 
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

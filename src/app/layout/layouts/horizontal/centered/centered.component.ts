@@ -16,7 +16,7 @@ export class CenteredLayoutComponent implements OnInit, OnDestroy
 {
     navigation: Navigation;
     isScreenSmall: boolean;
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

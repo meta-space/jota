@@ -22,7 +22,7 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
     opened: boolean = false;
     resultSets: any[];
     searchControl: FormControl = new FormControl();
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

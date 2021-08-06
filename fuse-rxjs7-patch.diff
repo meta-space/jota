@@ -1,0 +1,235 @@
+From f1a57865d38c479e335a42934cab4d82a484d565 Mon Sep 17 00:00:00 2001
+From: meta-space <hotpatched@gmail.com>
+Date: Fri, 6 Aug 2021 20:37:45 +0200
+Subject: [PATCH] update @fuse for rxjs@7
+
+---
+ src/@fuse/components/alert/alert.component.ts                   | 2 +-
+ src/@fuse/components/date-range/date-range.component.ts         | 2 +-
+ .../navigation/horizontal/components/basic/basic.component.ts   | 2 +-
+ .../navigation/horizontal/components/branch/branch.component.ts | 2 +-
+ .../horizontal/components/divider/divider.component.ts          | 2 +-
+ .../navigation/horizontal/components/spacer/spacer.component.ts | 2 +-
+ .../components/navigation/horizontal/horizontal.component.ts    | 2 +-
+ .../navigation/vertical/components/aside/aside.component.ts     | 2 +-
+ .../navigation/vertical/components/basic/basic.component.ts     | 2 +-
+ .../vertical/components/collapsable/collapsable.component.ts    | 2 +-
+ .../navigation/vertical/components/divider/divider.component.ts | 2 +-
+ .../navigation/vertical/components/group/group.component.ts     | 2 +-
+ .../navigation/vertical/components/spacer/spacer.component.ts   | 2 +-
+ src/@fuse/components/navigation/vertical/vertical.component.ts  | 2 +-
+ src/@fuse/directives/scroll-reset/scroll-reset.directive.ts     | 2 +-
+ src/@fuse/directives/scrollbar/scrollbar.directive.ts           | 2 +-
+ 16 files changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/src/@fuse/components/alert/alert.component.ts b/src/@fuse/components/alert/alert.component.ts
+index a9ef31c..dd79338 100644
+--- a/src/@fuse/components/alert/alert.component.ts
++++ b/src/@fuse/components/alert/alert.component.ts
+@@ -32,7 +32,7 @@ export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy
+     @Input() type: FuseAlertType = 'primary';
+     @Output() readonly dismissedChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+ 
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/date-range/date-range.component.ts b/src/@fuse/components/date-range/date-range.component.ts
+index 9fd99cb..e2268c4 100644
+--- a/src/@fuse/components/date-range/date-range.component.ts
++++ b/src/@fuse/components/date-range/date-range.component.ts
+@@ -48,7 +48,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
+     private _timeFormat: string;
+     private _timeRange: boolean;
+     private readonly _timeRegExp: RegExp = new RegExp('^(0[0-9]|1[0-9]|2[0-4]|[0-9]):([0-5][0-9])(A|(?:AM)|P|(?:PM))?$', 'i');
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/horizontal/components/basic/basic.component.ts b/src/@fuse/components/navigation/horizontal/components/basic/basic.component.ts
+index f20224a..9a2b892 100644
+--- a/src/@fuse/components/navigation/horizontal/components/basic/basic.component.ts
++++ b/src/@fuse/components/navigation/horizontal/components/basic/basic.component.ts
+@@ -20,7 +20,7 @@ export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDes
+ 
+     isActiveMatchOptions: IsActiveMatchOptions;
+     private _fuseHorizontalNavigationComponent: FuseHorizontalNavigationComponent;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/horizontal/components/branch/branch.component.ts b/src/@fuse/components/navigation/horizontal/components/branch/branch.component.ts
+index 53ef2a9..d6dcc08 100644
+--- a/src/@fuse/components/navigation/horizontal/components/branch/branch.component.ts
++++ b/src/@fuse/components/navigation/horizontal/components/branch/branch.component.ts
+@@ -25,7 +25,7 @@ export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDe
+     @ViewChild('matMenu', {static: true}) matMenu: MatMenu;
+ 
+     private _fuseHorizontalNavigationComponent: FuseHorizontalNavigationComponent;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/horizontal/components/divider/divider.component.ts b/src/@fuse/components/navigation/horizontal/components/divider/divider.component.ts
+index 6601023..1662776 100644
+--- a/src/@fuse/components/navigation/horizontal/components/divider/divider.component.ts
++++ b/src/@fuse/components/navigation/horizontal/components/divider/divider.component.ts
+@@ -17,7 +17,7 @@ export class FuseHorizontalNavigationDividerItemComponent implements OnInit, OnD
+     @Input() name: string;
+ 
+     private _fuseHorizontalNavigationComponent: FuseHorizontalNavigationComponent;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/horizontal/components/spacer/spacer.component.ts b/src/@fuse/components/navigation/horizontal/components/spacer/spacer.component.ts
+index f43fb65..e8fb54f 100644
+--- a/src/@fuse/components/navigation/horizontal/components/spacer/spacer.component.ts
++++ b/src/@fuse/components/navigation/horizontal/components/spacer/spacer.component.ts
+@@ -17,7 +17,7 @@ export class FuseHorizontalNavigationSpacerItemComponent implements OnInit, OnDe
+     @Input() name: string;
+ 
+     private _fuseHorizontalNavigationComponent: FuseHorizontalNavigationComponent;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/horizontal/horizontal.component.ts b/src/@fuse/components/navigation/horizontal/horizontal.component.ts
+index dbd159c..b1c4f94 100644
+--- a/src/@fuse/components/navigation/horizontal/horizontal.component.ts
++++ b/src/@fuse/components/navigation/horizontal/horizontal.component.ts
+@@ -20,7 +20,7 @@ export class FuseHorizontalNavigationComponent implements OnChanges, OnInit, OnD
+     @Input() navigation: FuseNavigationItem[];
+ 
+     onRefreshed: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/vertical/components/aside/aside.component.ts b/src/@fuse/components/navigation/vertical/components/aside/aside.component.ts
+index 2b2a25b..1e969a2 100644
+--- a/src/@fuse/components/navigation/vertical/components/aside/aside.component.ts
++++ b/src/@fuse/components/navigation/vertical/components/aside/aside.component.ts
+@@ -28,7 +28,7 @@ export class FuseVerticalNavigationAsideItemComponent implements OnChanges, OnIn
+ 
+     active: boolean = false;
+     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/vertical/components/basic/basic.component.ts b/src/@fuse/components/navigation/vertical/components/basic/basic.component.ts
+index b3a20aa..190b7d4 100644
+--- a/src/@fuse/components/navigation/vertical/components/basic/basic.component.ts
++++ b/src/@fuse/components/navigation/vertical/components/basic/basic.component.ts
+@@ -20,7 +20,7 @@ export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestr
+ 
+     isActiveMatchOptions: IsActiveMatchOptions;
+     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/vertical/components/collapsable/collapsable.component.ts b/src/@fuse/components/navigation/vertical/components/collapsable/collapsable.component.ts
+index 6c944fc..0a4b200 100644
+--- a/src/@fuse/components/navigation/vertical/components/collapsable/collapsable.component.ts
++++ b/src/@fuse/components/navigation/vertical/components/collapsable/collapsable.component.ts
+@@ -28,7 +28,7 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
+     isCollapsed: boolean = true;
+     isExpanded: boolean = false;
+     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/vertical/components/divider/divider.component.ts b/src/@fuse/components/navigation/vertical/components/divider/divider.component.ts
+index d5178ee..6778cdd 100644
+--- a/src/@fuse/components/navigation/vertical/components/divider/divider.component.ts
++++ b/src/@fuse/components/navigation/vertical/components/divider/divider.component.ts
+@@ -17,7 +17,7 @@ export class FuseVerticalNavigationDividerItemComponent implements OnInit, OnDes
+     @Input() name: string;
+ 
+     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/vertical/components/group/group.component.ts b/src/@fuse/components/navigation/vertical/components/group/group.component.ts
+index 614f5c4..37a12e0 100644
+--- a/src/@fuse/components/navigation/vertical/components/group/group.component.ts
++++ b/src/@fuse/components/navigation/vertical/components/group/group.component.ts
+@@ -23,7 +23,7 @@ export class FuseVerticalNavigationGroupItemComponent implements OnInit, OnDestr
+     @Input() name: string;
+ 
+     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/vertical/components/spacer/spacer.component.ts b/src/@fuse/components/navigation/vertical/components/spacer/spacer.component.ts
+index ca92703..1922af9 100644
+--- a/src/@fuse/components/navigation/vertical/components/spacer/spacer.component.ts
++++ b/src/@fuse/components/navigation/vertical/components/spacer/spacer.component.ts
+@@ -17,7 +17,7 @@ export class FuseVerticalNavigationSpacerItemComponent implements OnInit, OnDest
+     @Input() name: string;
+ 
+     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/components/navigation/vertical/vertical.component.ts b/src/@fuse/components/navigation/vertical/vertical.component.ts
+index 076fff7..69c3872 100644
+--- a/src/@fuse/components/navigation/vertical/vertical.component.ts
++++ b/src/@fuse/components/navigation/vertical/vertical.component.ts
+@@ -57,7 +57,7 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
+     private _scrollStrategy: ScrollStrategy = this._scrollStrategyOptions.block();
+     private _fuseScrollbarDirectives!: QueryList<FuseScrollbarDirective>;
+     private _fuseScrollbarDirectivesSubscription: Subscription;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/directives/scroll-reset/scroll-reset.directive.ts b/src/@fuse/directives/scroll-reset/scroll-reset.directive.ts
+index 4fead83..b59b4a0 100644
+--- a/src/@fuse/directives/scroll-reset/scroll-reset.directive.ts
++++ b/src/@fuse/directives/scroll-reset/scroll-reset.directive.ts
+@@ -9,7 +9,7 @@ import { filter, takeUntil } from 'rxjs/operators';
+ })
+ export class FuseScrollResetDirective implements OnInit, OnDestroy
+ {
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+diff --git a/src/@fuse/directives/scrollbar/scrollbar.directive.ts b/src/@fuse/directives/scrollbar/scrollbar.directive.ts
+index d4854f2..eb4f08e 100644
+--- a/src/@fuse/directives/scrollbar/scrollbar.directive.ts
++++ b/src/@fuse/directives/scrollbar/scrollbar.directive.ts
+@@ -27,7 +27,7 @@ export class FuseScrollbarDirective implements OnChanges, OnInit, OnDestroy
+     private _animation: number;
+     private _options: PerfectScrollbar.Options;
+     private _ps: PerfectScrollbar;
+-    private _unsubscribeAll: Subject<any> = new Subject<any>();
++    private _unsubscribeAll: Subject<void> = new Subject<void>();
+ 
+     /**
+      * Constructor
+-- 
+2.20.1.windows.1
+
