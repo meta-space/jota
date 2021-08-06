@@ -48,7 +48,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     private _timeFormat: string;
     private _timeRange: boolean;
     private readonly _timeRegExp: RegExp = new RegExp('^(0[0-9]|1[0-9]|2[0-4]|[0-9]):([0-5][0-9])(A|(?:AM)|P|(?:PM))?$', 'i');
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

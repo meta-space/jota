@@ -15,7 +15,7 @@ export class NotesLabelsComponent implements OnInit, OnDestroy
     labels$: Observable<Label[]>;
 
     labelChanged: Subject<Label> = new Subject<Label>();
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

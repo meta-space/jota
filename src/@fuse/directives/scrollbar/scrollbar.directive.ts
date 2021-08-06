@@ -27,7 +27,7 @@ export class FuseScrollbarDirective implements OnChanges, OnInit, OnDestroy
     private _animation: number;
     private _options: PerfectScrollbar.Options;
     private _ps: PerfectScrollbar;
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

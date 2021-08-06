@@ -25,7 +25,7 @@ export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDe
     @ViewChild('matMenu', {static: true}) matMenu: MatMenu;
 
     private _fuseHorizontalNavigationComponent: FuseHorizontalNavigationComponent;
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

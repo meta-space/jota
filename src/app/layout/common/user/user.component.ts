@@ -22,7 +22,7 @@ export class UserComponent implements OnInit, OnDestroy
     @Input() showAvatar: boolean = true;
     user: User;
 
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

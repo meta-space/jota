@@ -25,7 +25,7 @@ export class NotesDetailsComponent implements OnInit, OnDestroy
     note: Note;
     replyFormActive: boolean = false;
     private _overlayRef: OverlayRef;
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

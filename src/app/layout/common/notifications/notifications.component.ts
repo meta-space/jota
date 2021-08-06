@@ -22,7 +22,7 @@ export class NotificationsComponent implements OnInit, OnDestroy
     notifications: Notification[];
     unreadCount: number = 0;
     private _overlayRef: OverlayRef;
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

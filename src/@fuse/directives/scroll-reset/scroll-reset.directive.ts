@@ -9,7 +9,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 })
 export class FuseScrollResetDirective implements OnInit, OnDestroy
 {
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor

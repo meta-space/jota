@@ -24,7 +24,7 @@ export class NotesSidebarComponent implements OnInit, OnDestroy
     private _foldersMenuData: FuseNavigationItem[] = [];
     private _labelsMenuData: FuseNavigationItem[] = [];
     private _otherMenuData: FuseNavigationItem[] = [];
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _unsubscribeAll: Subject<void> = new Subject<void>();
 
     /**
      * Constructor
