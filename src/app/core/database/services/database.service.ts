@@ -36,7 +36,7 @@ import {
     HERO_COLLECTION_NAME,
     DATABASE_NAME,
     IS_SERVER_SIDE_RENDERING
-} from '../../shared';
+} from './../shared';
 import { HERO_SCHEMA } from '../schemas/hero.schema';
 
 
@@ -56,7 +56,6 @@ const syncHost = IS_SERVER_SIDE_RENDERING ? 'localhost' : window.location.hostna
 const syncURL = 'http://' + syncHost + ':' + COUCHDB_PORT + '/' + DATABASE_NAME;
 console.log('syncURL: ' + syncURL);
 
-
 function doSync(): boolean {
     if (IS_SERVER_SIDE_RENDERING) {
         return true;
@@ -75,6 +74,8 @@ import { RxDBValidatePlugin } from 'rxdb/plugins/validate';
  * Loads RxDB plugins
  */
 async function loadRxDBPlugins(): Promise<void> {
+
+    debugger;
 
     addRxPlugin(RxDBReplicationCouchDBPlugin);
     // http-adapter is always needed for replication with the node-server
