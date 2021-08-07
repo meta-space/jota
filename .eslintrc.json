@@ -81,7 +81,7 @@
                     "single"
                 ],
                 "prefer-arrow/prefer-arrow-functions": [
-                    "error",
+                    "off",
                     {
                       "disallowPrototype": true,
                       "singleReturnOnly": false,
@@ -90,12 +90,9 @@
                 ],
                 "prefer-arrow-callback": [
                     "error",
-                    { "allowNamedFunctions": true }
-                ],
-                "func-style": [
-                    "error",
-                    "expression",
-                    { "allowArrowFunctions": true }
+                    { 
+                        "allowNamedFunctions": true
+                    }
                 ]
             }
         },
