@@ -61,7 +61,7 @@ function doSync(): boolean {
         return true;
     }
 
-    if (global.window.location.hash == '#nosync') {
+    if (global.window.location.hash === '#nosync') {
         return false;
     }
     return true;
@@ -82,10 +82,10 @@ async function loadRxDBPlugins(): Promise<void> {
 
     if (IS_SERVER_SIDE_RENDERING) {
         // for server side rendering, import the memory adapter
-        const PouchdbAdapterMemory = require('pouchdb-adapter-' + 'memory');
-        addPouchPlugin(PouchdbAdapterMemory);
+        const pouchdbAdapterMemory = require('pouchdb-adapter-' + 'memory');
+        addPouchPlugin(pouchdbAdapterMemory);
     } else {
-        // else, use indexeddb
+        // else, use indexed db
         addPouchPlugin(PouchdbAdapterIdb);
 
         // then we also need the leader election
@@ -159,22 +159,20 @@ async function _create(): Promise<RxHeroesDatabase> {
 
     // hooks
     console.log('DatabaseService: add hooks');
-    db.collections.hero.preInsert(function (docObj: RxHeroDocumentType) {
+    db.collections.hero.preInsert(async (docObj: RxHeroDocumentType) => {
         const color = docObj.color;
-        return db.collections.hero
+        const has = await db.collections.hero
             .findOne({
                 selector: {
                     color
                 }
             })
-            .exec()
-            .then((has: RxHeroDocument | null) => {
-                if (has != null) {
-                    alert('another hero already has the color ' + color);
-                    throw new Error('color already there');
-                }
-                return db;
-            });
+            .exec();
+        if (has != null) {
+            alert('another hero already has the color ' + color);
+            throw new Error('color already there');
+        }
+        return db;
     }, false);
 
     // sync with server
@@ -221,7 +219,7 @@ let DB_INSTANCE: RxHeroesDatabase;
  * This is run via APP_INITIALIZER in app.module.ts
  * to ensure the database exists before the angular-app starts up
  */
-export async function initDatabase() {
+export async function initDatabase(): Promise<void> {
     /**
      * When server side rendering is used,
      * The database might already be there
