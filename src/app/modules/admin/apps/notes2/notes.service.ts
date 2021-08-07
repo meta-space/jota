@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { Note, NoteCategory, NoteFilter, NoteFolder, NoteLabel } from 'app/modules/admin/apps/notes2/notes.types';
+import { DatabaseService } from 'app/core/database/services/database.service';
 
 @Injectable({
     providedIn: 'root'
@@ -22,8 +23,18 @@ export class NotesService
     /**
      * Constructor
      */
-    constructor(private _httpClient: HttpClient)
+    constructor(private _httpClient: HttpClient, _dbService: DatabaseService)
     {
+        debugger;
+        _dbService.db.collections.hero
+        .findOne({ selector: { color: 'blue' } })
+        .exec()
+        .then(
+            () => {
+                debugger;
+                console.log('ran query');
+            }
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------
