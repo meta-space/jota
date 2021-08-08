@@ -36,7 +36,8 @@ import {
     HERO_COLLECTION_NAME,
     DATABASE_NAME,
     IS_SERVER_SIDE_RENDERING,
-    TAGS_COLLECTION_NAME
+    TAGS_COLLECTION_NAME,
+    TASKS_COLLECTION_NAME
 } from './../shared';
 import {
     HERO_SCHEMA,
@@ -57,6 +58,10 @@ const collectionSettings = {
     },
     [TAGS_COLLECTION_NAME]: {
         schema: TAG_SCHEMA,
+        sync: true
+    },
+    [TASKS_COLLECTION_NAME]: {
+        schema: TASK_SCHEMA,
         sync: true
     }
 };
