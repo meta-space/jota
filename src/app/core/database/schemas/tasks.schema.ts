@@ -1,7 +1,8 @@
 import type {
     RxJsonSchema
 } from 'rxdb/plugins/core';
-import { RxHeroDocumentType, RxTagDocumentType } from '../RxDB';
+import { RxHeroDocumentType } from '../RxDB';
+
 
 export const HERO_SCHEMA: RxJsonSchema<RxHeroDocumentType> = {
     title: 'hero schema',
@@ -61,27 +62,3 @@ export const HERO_SCHEMA: RxJsonSchema<RxHeroDocumentType> = {
         'skills'
     ]
 };
-
-export const TAG_SCHEMA: RxJsonSchema<RxTagDocumentType> = {
-    title: 'tag schema',
-    description: 'describes a tag',
-    version: 0,
-    keyCompression: false,
-    primaryKey: 'id',
-    type: 'object',
-    properties: {
-        id: {
-            type: 'string',
-            default: ''
-        },
-        title: {
-            type: 'string',
-            default: '',
-        }
-    },
-    required: [
-        'id',
-        'title',
-    ]
-};
-

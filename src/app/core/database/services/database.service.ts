@@ -35,9 +35,13 @@ import {
     COUCHDB_PORT,
     HERO_COLLECTION_NAME,
     DATABASE_NAME,
-    IS_SERVER_SIDE_RENDERING
+    IS_SERVER_SIDE_RENDERING,
+    TAGS_COLLECTION_NAME
 } from './../shared';
-import { HERO_SCHEMA } from '../schemas/hero.schema';
+import {
+    HERO_SCHEMA,
+    TAG_SCHEMA
+} from '../schemas/hero.schema';
 
 
 const collectionSettings = {
@@ -48,6 +52,10 @@ const collectionSettings = {
                 return this.hp / this.maxHP * 100;
             }
         },
+        sync: true
+    },
+    [TAGS_COLLECTION_NAME]: {
+        schema: TAG_SCHEMA,
         sync: true
     }
 };

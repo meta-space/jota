@@ -3,6 +3,8 @@ export const COUCHDB_PORT = 10101;
 
 export const DATABASE_NAME = 'db';
 export const HERO_COLLECTION_NAME = 'hero';
+export const TAGS_COLLECTION_NAME = 'tag';
+export const TASKS_COLLECTION_NAME = 'task';
 
 /**
  * We assume that when no indexeddb is there,
