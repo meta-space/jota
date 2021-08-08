@@ -40,7 +40,8 @@ import {
 } from './../shared';
 import {
     HERO_SCHEMA,
-    TAG_SCHEMA
+    TAG_SCHEMA,
+    TASK_SCHEMA
 } from '../schemas/hero.schema';
 
 

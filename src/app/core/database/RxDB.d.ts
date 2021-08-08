@@ -48,7 +48,6 @@ export type RxTasksSectionDocumentType = {
     id: string;
     title: string;
     tasks: Array<{
-        id: string;
         title: string;
         notes: string;
         completed: boolean;

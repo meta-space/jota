@@ -1,7 +1,7 @@
 import type {
     RxJsonSchema
 } from 'rxdb/plugins/core';
-import { RxHeroDocumentType, RxTagDocumentType } from '../RxDB';
+import { RxHeroDocumentType, RxTagDocumentType, RxTasksSectionDocumentType } from '../RxDB';
 
 export const HERO_SCHEMA: RxJsonSchema<RxHeroDocumentType> = {
     title: 'hero schema',
@@ -85,3 +85,62 @@ export const TAG_SCHEMA: RxJsonSchema<RxTagDocumentType> = {
     ]
 };
 
+
+export const TASK_SCHEMA: RxJsonSchema<RxTasksSectionDocumentType> = {
+    title: 'task schema',
+    description: 'describes a collection of tasks which are logically grouped together',
+    version: 0,
+    keyCompression: false,
+    primaryKey: 'id',
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            default: ''
+        },
+        title: {
+            type: 'string',
+            default: '',
+        },
+        tasks: {
+            type: 'array',
+            uniqueItems: true,
+            items: {
+                type: 'object',
+                properties: {
+                    title: {
+                        type: 'string'
+                    },
+                    notes: {
+                        type: 'number'
+                    },
+                    completed: {
+                        type: 'boolean'
+                    },
+                    dueDate: {
+                        type: 'string'
+                    },
+                    priority: {
+                        type: 'number'
+                    },
+                    tags: {
+                        type: 'array',
+                        ref: 'tag',
+                        items: {
+                          type: 'string'
+                        }
+                    },
+                    order: {
+                        type: 'number'
+                    },
+                }
+            },
+            default: []
+        }
+    },
+    required: [
+        'id',
+        'title',
+        'tasks'
+    ]
+};
