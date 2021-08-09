@@ -35,7 +35,7 @@ export type RxHeroCollection = RxCollection<RxHeroDocumentType, RxHeroDocMethods
 
 export type RxTagDocumentType = {
     id: string;
-    title: string;
+    name: string;
 };
 
 export type RxTagDocument = RxDocument<RxTagDocumentType>;
@@ -49,9 +49,9 @@ export type RxTasksSectionDocumentType = {
     title: string;
     tasks: Array<{
         title: string;
-        notes: string;
+        notes?: string;
         completed: boolean;
-        dueDate: string | null;
+        dueDate?: string;
         priority: 0 | 1 | 2;
         tags: string[];
         order: number;

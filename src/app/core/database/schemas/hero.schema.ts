@@ -74,14 +74,14 @@ export const TAG_SCHEMA: RxJsonSchema<RxTagDocumentType> = {
             type: 'string',
             default: ''
         },
-        title: {
+        name: {
             type: 'string',
             default: '',
         }
     },
     required: [
         'id',
-        'title',
+        'name',
     ]
 };
 
@@ -133,7 +133,13 @@ export const TASK_SCHEMA: RxJsonSchema<RxTasksSectionDocumentType> = {
                     order: {
                         type: 'number'
                     },
-                }
+                },
+                required: [
+                    'title',
+                    'priority',
+                    'tags',
+                    'order'
+                ]
             },
             default: []
         }
