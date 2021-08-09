@@ -69,8 +69,8 @@ export type RxTasksCollection = RxCollection<RxTasksSectionDocumentType>;
 
 export type RxHeroesCollections = {
     hero: RxHeroCollection;
-    tags: RxTagsCollection;
-    tasks: RxTasksCollection;
+    tag: RxTagsCollection;
+    task: RxTasksCollection;
 };
 
 export type RxHeroesDatabase = RxDatabase<RxHeroesCollections>;
