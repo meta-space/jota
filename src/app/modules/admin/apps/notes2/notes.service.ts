@@ -84,6 +84,17 @@ export class NotesService
         //     });
         // });
 
+        _dbService.db.task
+            .findOne()
+            .exec()
+            .then((task) => {
+                console.log(`task: ${JSON.stringify(task, null, 2)}`);
+                task.tasks[0].tags_.then((tags) => {
+                    console.log(`populated tags: ${JSON.stringify(tags, null, 2)}`
+                    );
+                });
+            });
+
 
     }
 

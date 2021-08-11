@@ -1,64 +1,93 @@
 import type {
     RxJsonSchema
 } from 'rxdb/plugins/core';
-import { RxHeroDocumentType } from '../RxDB';
+import { RxTagDocumentType, RxTasksSectionDocumentType } from '../RxDB';
 
-
-export const HERO_SCHEMA: RxJsonSchema<RxHeroDocumentType> = {
-    title: 'hero schema',
-    description: 'describes a simple hero',
+export const TAG_SCHEMA: RxJsonSchema<RxTagDocumentType> = {
+    title: 'tag schema',
+    description: 'describes a tag',
     version: 0,
     keyCompression: false,
-    primaryKey: 'name',
+    primaryKey: 'id',
     type: 'object',
     properties: {
-        name: {
+        id: {
             type: 'string',
             default: ''
         },
-        color: {
+        name: {
             type: 'string',
             default: '',
-            minLength: 3
+        }
+    },
+    required: [
+        'id',
+        'name',
+    ]
+};
+
+
+export const TASK_SCHEMA: RxJsonSchema<RxTasksSectionDocumentType> = {
+    title: 'task schema',
+    description: 'describes a collection of tasks which are logically grouped together',
+    version: 0,
+    keyCompression: false,
+    primaryKey: 'id',
+    type: 'object',
+    properties: {
+        id: {
+            type: 'string',
+            default: ''
         },
-        maxHP: {
-            type: 'number',
-            minimum: 0,
-            maximum: 1000
+        title: {
+            type: 'string',
+            default: '',
         },
-        hp: {
-            type: 'number',
-            minimum: 0,
-            maximum: 100,
-            default: 100
-        },
-        team: {
-            description: 'color of the team this hero belongs to',
-            type: 'string'
-        },
-        skills: {
+        tasks: {
             type: 'array',
-            maxItems: 5,
             uniqueItems: true,
             items: {
                 type: 'object',
                 properties: {
-                    name: {
+                    title: {
                         type: 'string'
                     },
-                    damage: {
+                    notes: {
                         type: 'number'
-                    }
-                }
+                    },
+                    completed: {
+                        type: 'boolean'
+                    },
+                    dueDate: {
+                        type: 'string'
+                    },
+                    priority: {
+                        type: 'number'
+                    },
+                    tags: {
+                        type: 'array',
+                        ref: 'tag',
+                        items: {
+                          type: 'string'
+                        }
+                    },
+                    order: {
+                        type: 'number'
+                    },
+                },
+                required: [
+                    'title',
+                    'priority',
+                    'tags',
+                    'order'
+                ]
             },
             default: []
         }
     },
     required: [
-        'name',
-        'color',
-        'hp',
-        'maxHP',
-        'skills'
+        'id',
+        'title',
+        'tasks'
     ]
 };
