@@ -58,7 +58,8 @@ export const TASK_SCHEMA: RxJsonSchema<RxTasksSectionDocumentType> = {
             type: 'string'
         },
         priority: {
-            type: 'number'
+            type: 'number',
+            default: 2
         },
         tags: {
             type: 'array',

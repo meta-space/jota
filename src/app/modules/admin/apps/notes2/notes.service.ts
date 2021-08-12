@@ -38,63 +38,46 @@ export class NotesService
         // create task
         //
         // const newTask = _dbService.db.collections.task.newDocument({
-        //     id: '1',
-        //     title: 'first steps',
-        //     tasks: []
+        //     id: '22',
+        //     title: 'preparations',
+        //     priority: 1,
+        //     order: 1
         // });
-        
+
         // newTask.save()
         //        .then(() => console.log('new task created'))
         //        .catch(() => console.error('failed to create new task'));
 
 
         // create tag
-        //_dbService.db.collections.tag.newDocument({ id: '0', name: 'test'}).save();
+        //_dbService.db.collections.tag.newDocument({ id: '1', name: 'test'}).save();
 
-        // update task list 
-        // _dbService.db.tag.findOne().exec().then((firstTag) => {
-        //     _dbService.db.task.findOne().exec().then((firstTask) => {
-        //         firstTask.atomicPatch({
-        //             tasks: [
-        //                 {
-        //                     title: 'prepare',
-        //                     completed: false,
-        //                     priority: 1,
-        //                     order: 1,
-        //                     tags: [ firstTag.id ]
-        //                 }
-        //             ]
-        //         })
-        //             .then(() => console.log('task updated'))
-        //             .catch(() => console.log('update failed'));
-        //     });
-        // });
+        // update task list
+        _dbService.db.tag.findOne().exec().then((firstTag) => {
+            _dbService.db.task.findOne().exec().then((firstTask) => {
+                firstTask.atomicPatch({
+                    section: 'first steps',
+                    completed: false,
+                    tags: [ 'test' ]
+                })
+                .then(() => console.log('task updated'))
+                .catch((err) => console.log('update failed ' + err));
+            });
+        });
 
-        // _dbService.db.tag.findOne().exec().then((tag) => {
-        //     console.log(`tag: ${JSON.stringify(tag, null, 2)}`);
-        // });
+        _dbService.db.tag.findOne().exec().then((tag) => {
+            console.log(`tag: ${JSON.stringify(tag, null, 2)}`);
+        });
 
 
         // WIP nested reference to tags not populated
 
-        // _dbService.db.task.findOne().exec().then((task) => {
-        //     console.log(`task: ${JSON.stringify(task, null, 2)}`);
-        //     task.tasks[0].tags_.then((tags) => {
-        //         console.log(`populated tags: ${JSON.stringify(tags, null, 2)}`);
-        //     });
-        // });
-
-        _dbService.db.task
-            .findOne()
-            .exec()
-            .then((task) => {
-                console.log(`task: ${JSON.stringify(task, null, 2)}`);
-                task.tasks[0].tags_.then((tags) => {
-                    console.log(`populated tags: ${JSON.stringify(tags, null, 2)}`
-                    );
-                });
+        _dbService.db.task.findOne().exec().then((task) => {
+            console.log(`task: ${JSON.stringify(task, null, 2)}`);
+            task.populate('tags').then((tags) => {
+                console.log(`populated tags: ${JSON.stringify(tags, null, 2)}`);
             });
-
+        });
 
     }
 

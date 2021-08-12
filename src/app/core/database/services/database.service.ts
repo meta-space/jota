@@ -41,9 +41,11 @@ import {
 } from './../shared';
 import {
     HERO_SCHEMA,
+} from '../schemas/hero.schema';
+import {
     TAG_SCHEMA,
     TASK_SCHEMA
-} from '../schemas/hero.schema';
+} from '../schemas/tasks.schema';
 
 
 const collectionSettings = {

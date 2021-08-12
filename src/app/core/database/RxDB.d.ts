@@ -46,7 +46,7 @@ export type RxTagsCollection = RxCollection<RxTagDocumentType>;
 
 export type RxTasksSectionDocumentType = {
     id: string;
-    grouping: string;
+    section: string;
     title: string;
     notes?: string;
     completed: boolean;
