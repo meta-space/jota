@@ -8,20 +8,15 @@ export const TAG_SCHEMA: RxJsonSchema<RxTagDocumentType> = {
     description: 'describes a tag',
     version: 0,
     keyCompression: false,
-    primaryKey: 'id',
+    primaryKey: 'name',
     type: 'object',
     properties: {
-        id: {
-            type: 'string',
-            default: ''
-        },
         name: {
             type: 'string',
             default: '',
         }
     },
     required: [
-        'id',
         'name',
     ]
 };
@@ -32,10 +27,10 @@ export const TASK_SCHEMA: RxJsonSchema<RxTasksSectionDocumentType> = {
     description: 'describes a collection of tasks which are logically grouped together',
     version: 0,
     keyCompression: false,
-    primaryKey: 'id',
+    primaryKey: 'guid',
     type: 'object',
     properties: {
-        id: {
+        guid: {
             type: 'string',
             default: ''
         },
@@ -74,7 +69,7 @@ export const TASK_SCHEMA: RxJsonSchema<RxTasksSectionDocumentType> = {
         }
     },
     required: [
-        'id',
+        'guid',
         'title',
         'section',
         'completed',

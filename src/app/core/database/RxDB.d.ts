@@ -34,7 +34,6 @@ export type RxHeroCollection = RxCollection<RxHeroDocumentType, RxHeroDocMethods
 // --- TAGS --- //
 
 export type RxTagDocumentType = {
-    id: string;
     name: string;
 };
 
@@ -45,7 +44,7 @@ export type RxTagsCollection = RxCollection<RxTagDocumentType>;
 // --- TASKS --- //
 
 export type RxTasksSectionDocumentType = {
-    id: string;
+    guid: string;
     section: string;
     title: string;
     notes?: string;
