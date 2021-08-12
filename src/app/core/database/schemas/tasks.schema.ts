@@ -43,51 +43,42 @@ export const TASK_SCHEMA: RxJsonSchema<RxTasksSectionDocumentType> = {
             type: 'string',
             default: '',
         },
-        tasks: {
+        section: {
+            type: 'string',
+            default: '',
+        },
+        notes: {
+            type: 'number'
+        },
+        completed: {
+            type: 'boolean',
+            default: false
+        },
+        dueDate: {
+            type: 'string'
+        },
+        priority: {
+            type: 'number'
+        },
+        tags: {
             type: 'array',
-            uniqueItems: true,
+            ref: 'tag',
             items: {
-                type: 'object',
-                properties: {
-                    title: {
-                        type: 'string'
-                    },
-                    notes: {
-                        type: 'number'
-                    },
-                    completed: {
-                        type: 'boolean'
-                    },
-                    dueDate: {
-                        type: 'string'
-                    },
-                    priority: {
-                        type: 'number'
-                    },
-                    tags: {
-                        type: 'array',
-                        ref: 'tag',
-                        items: {
-                          type: 'string'
-                        }
-                    },
-                    order: {
-                        type: 'number'
-                    },
-                },
-                required: [
-                    'title',
-                    'priority',
-                    'tags',
-                    'order'
-                ]
+                type: 'string'
             },
             default: []
+        },
+        order: {
+            type: 'number'
         }
     },
     required: [
         'id',
         'title',
-        'tasks'
+        'section',
+        'completed',
+        'priority',
+        'tags',
+        'order'
     ]
 };

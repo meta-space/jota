@@ -46,16 +46,14 @@ export type RxTagsCollection = RxCollection<RxTagDocumentType>;
 
 export type RxTasksSectionDocumentType = {
     id: string;
+    grouping: string;
     title: string;
-    tasks: Array<{
-        title: string;
-        notes?: string;
-        completed: boolean;
-        dueDate?: string;
-        priority: 0 | 1 | 2;
-        tags: string[];
-        order: number;
-    }>;
+    notes?: string;
+    completed: boolean;
+    dueDate?: string;
+    priority: 0 | 1 | 2;
+    tags: string[];
+    order: number;
 };
 
 export type RxTaskDocument = RxDocument<RxTasksSectionDocumentType>;
