@@ -41,7 +41,7 @@ export class NotesFiltersResolver implements Resolve<any>
     /**
      * Constructor
      */
-    constructor(private _mailboxService: NotesService)
+    constructor(private _notesService: NotesService)
     {
     }
 
@@ -57,7 +57,7 @@ export class NotesFiltersResolver implements Resolve<any>
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<NoteFilter[]>
     {
-        return this._mailboxService.getFilters();
+        return this._notesService.getFilters();
     }
 }
 
