@@ -8,9 +8,13 @@ export const TAG_SCHEMA: RxJsonSchema<RxTagDocumentType> = {
     description: 'describes a tag',
     version: 0,
     keyCompression: false,
-    primaryKey: 'name',
+    primaryKey: 'id',
     type: 'object',
     properties: {
+        id: {
+            type: 'string',
+            default: ''
+        },
         name: {
             type: 'string',
             default: '',
@@ -27,10 +31,10 @@ export const TASK_SCHEMA: RxJsonSchema<RxTasksSectionDocumentType> = {
     description: 'describes a collection of tasks which are logically grouped together',
     version: 0,
     keyCompression: false,
-    primaryKey: 'guid',
+    primaryKey: 'id',
     type: 'object',
     properties: {
-        guid: {
+        id: {
             type: 'string',
             default: ''
         },
