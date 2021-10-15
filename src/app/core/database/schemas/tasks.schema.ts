@@ -73,7 +73,7 @@ export const TASK_SCHEMA: RxJsonSchema<RxTasksSectionDocumentType> = {
         }
     },
     required: [
-        'guid',
+        'id',
         'title',
         'section',
         'completed',

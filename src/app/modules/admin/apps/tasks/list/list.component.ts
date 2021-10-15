@@ -29,7 +29,7 @@ export class TasksListComponent implements OnInit, OnDestroy
         incomplete: 0,
         total     : 0
     };
-    private _unsubscribeAll: Subject<void> = new Subject<void>();
+    private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
      * Constructor
@@ -153,7 +153,7 @@ export class TasksListComponent implements OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
 
